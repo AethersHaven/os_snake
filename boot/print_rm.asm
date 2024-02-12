@@ -1,4 +1,4 @@
-[BITS 16]
+[bits 16]
 
 ; Real mode print string
 ; Takes in address of string in %bx
