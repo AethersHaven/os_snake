@@ -48,7 +48,7 @@ BOOT_DRIVE db 0
 REAL_MODE_MSG db "Started in 16-bit real mode.", 0x0A, 0x0D, 0
 KERNEL_LOAD_MSG db "Loading kernel into memory.", 0x0A, 0x0D, 0
 PROTECTED_MODE_MSG db "Landed in 32-bit protected mode.", 0
-SECTOR_LOAD_COUNT equ 16
+SECTOR_LOAD_COUNT equ 48
 KERNEL_OFFSET equ 0x1000
 
 

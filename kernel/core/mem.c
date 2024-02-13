@@ -1,5 +1,8 @@
 #include "mem.h"
 
+#include "util/console.h"
+#include "drivers/screen.h"
+
 void set_header(unsigned int *header_address, unsigned int free, unsigned int chunk_size, unsigned int prev_chunk_size);
 unsigned int is_header_free(unsigned int *header_address);
 unsigned int get_header_size(unsigned int *header_address);
@@ -22,7 +25,7 @@ void *malloc(size_t nbytes)
 
     unsigned int *header_address = HEAP_START;
     unsigned int previous_header_size = 0;
-    while (header_address < (unsigned int *)HEAP_START + HEAP_SIZE)
+    while (header_address < HEAP_START + HEAP_SIZE)
     {
         unsigned int header_size = get_header_size(header_address);
         if (is_header_free(header_address) && header_size >= requested_blocks)
@@ -56,7 +59,7 @@ void free(void *address)
     set_header(header_address, true, size, prev_size);
 
     unsigned int *next_header_address = header_address + 2 + size;
-    while (next_header_address < (unsigned int *)HEAP_START + HEAP_SIZE && is_header_free(next_header_address))
+    while (next_header_address < HEAP_START + HEAP_SIZE && is_header_free(next_header_address))
     {
         size += 2 + get_header_size(next_header_address);
         set_header(header_address, true, size, prev_size);
@@ -140,6 +143,9 @@ unsigned int get_header_previous_size(unsigned int *header_address)
 
 void handle_error()
 {
+    print_color("MEMORY ERROR!!!!!!", 0x28);
+    draw_console();
+    flip();
     while (true) // Hang for now
     {
     }

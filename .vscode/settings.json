@@ -2,6 +2,12 @@
     "files.associations": {
         "mem.h": "c",
         "screen.h": "c",
-        "math.h": "c"
-    }
+        "math.h": "c",
+        "ports.h": "c",
+        "font.h": "c",
+        "keyboard.h": "c",
+        "console.h": "c",
+        "core.h": "c"
+    },
+    "C_Cpp.errorSquiggles": "disabled"
 }

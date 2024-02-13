@@ -17,10 +17,10 @@ Header layout (2 blocks):
 32 bit: previous chunk size
 */
 
-#define HEAP_START ((void *)0x00FFFFFF) // 16MB
-#define HEAP_SIZE ((size_t)0x00FFFFFF)    // 16MB
+#define HEAP_START ((unsigned int*)0x00FFFFFF) // 16MB
+#define HEAP_SIZE ((size_t)0x00FFFFFF)  // 16MB
 
-#define low_16(address) ((unsighed short)((address) & 0xFFFF))
+#define low_16(address) ((unsigned short)((address) & 0xFFFF))
 #define high_16(address) ((unsigned short)(((address) >> 16) & 0xFFFF))
 
 void init_heap();

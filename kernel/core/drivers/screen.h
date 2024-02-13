@@ -15,4 +15,6 @@ void draw_line(float x1, float y1, float x2, float y2, unsigned char palette_ind
 void fill_rect(float x1, float y1, float x2, float y2, unsigned char palette_index);
 void fill_triangle(float x1, float y1, float x2, float y2, float x3, float y3, unsigned char palette_index);
 
+void draw_character(unsigned int row, unsigned int col, unsigned char character, unsigned palette_index);
+
 #endif

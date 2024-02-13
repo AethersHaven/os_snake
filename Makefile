@@ -27,10 +27,10 @@ build/os_image.bin: build/boot_sector.bin build/kernel.bin
 build/boot_sector.bin: boot/boot_loader.asm
 	nasm $< -f bin -o $@
 
-build/kernel.bin: build/boot/kernel_entry.o $(C_OBJECTS)
+build/kernel.bin: build/boot/kernel_entry.o $(C_OBJECTS) build/kernel/core/cpu/interrupt.o
 	${LD} -melf_i386 -o $@ -Ttext 0x1000 $^ --oformat binary
 
-build/kernel.elf: build/boot/kernel_entry.o ${C_OBJECTS}
+build/kernel.elf: build/boot/kernel_entry.o ${C_OBJECTS} build/kernel/core/cpu/interrupt.o
 	${LD} -melf_i386 -o $@ -Ttext 0x1000 $^
 
 build/%.o: %.c $(HEADERS)

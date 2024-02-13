@@ -1,7 +1,8 @@
 #include "screen.h"
 
 #include "../mem.h"
-#include "../math.h"
+#include "../util/math.h"
+#include "font.h"
 
 unsigned char *video_buffer;
 
@@ -165,6 +166,31 @@ void fill_triangle(float x1f, float y1f, float x2f, float y2f, float x3f, float 
         int y4 = y2;
         fill_flat_triangle(x1, y1, x2, y2, x4, y4, palette_index);
         fill_flat_triangle(x2, y2, x4, y4, x3, y3, palette_index);
+    }
+}
+
+void draw_character(unsigned int row, unsigned int col, unsigned char character, unsigned palette_index)
+{
+    if (character > 0x7F)
+    {
+        return;
+    }
+
+    int offsetX = col * 8;
+    int offsetY = row * 8;
+
+    const unsigned char *bitmap = &font8x8[character][0];
+    for (int y = 0; y < 8; y++)
+    {
+        unsigned char columns = *(bitmap++);
+        for (int x = 0; x < 8; x++)
+        {
+            if (columns & 0x01)
+            {
+                set_pixel(offsetX + x, offsetY + y, palette_index);
+            }
+            columns = columns >> 1;
+        }
     }
 }
 
