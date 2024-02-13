@@ -23,6 +23,8 @@ Header layout (2 blocks):
 #define low_16(address) ((unsighed short)((address) & 0xFFFF))
 #define high_16(address) ((unsigned short)(((address) >> 16) & 0xFFFF))
 
+void init_heap();
+
 void *malloc(size_t nbytes);
 void free(void *address);
 

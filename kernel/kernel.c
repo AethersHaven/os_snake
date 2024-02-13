@@ -1,7 +1,9 @@
+#include "core/mem.h"
 #include "core/drivers/screen.h"
 
 void main()
 {
+    init_heap();
     init_screen();
 
     clear_screen(0x15);
