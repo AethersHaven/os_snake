@@ -6,7 +6,7 @@ LD = /usr/local/i386elfgcc/bin/i386-elf-ld
 GCC = /usr/local/i386elfgcc/bin/i386-elf-gcc
 GDB = gdb
 GCCFLAGS = -g -Icpu -ffreestanding -c -m32
-GDBFLAGS = -ex "symbol-file build/kernel.elf" -ex "break main" -ex "target remote localhost:1234" -ex "continue"
+GDBFLAGS = -tui -ex "symbol-file build/kernel.elf" -ex "break main" -ex "target remote localhost:1234" -ex "continue"
 
 run: prepare_build build/os_image.bin
 	qemu-system-i386 -drive file=build/os_image.bin,format=raw,index=0,if=floppy -m 32M
