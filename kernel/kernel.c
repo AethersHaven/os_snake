@@ -1,11 +1,12 @@
+#include "core/drivers/screen.h"
+
 void main()
 {
-    char* video_memory = 0xA0000;
-    for (int x = 0; x < 320; x++)
-    {
-        for (int y = 0; y < 200; y++)
-        {
-            video_memory[y * 320 + x] = 0x2F;
-        }
-    }
+    init_screen();
+
+    clear_screen(0x15);
+    fill_rect(-0.5f, -0.5f, 0, 0, 0x0F);
+    draw_line(0.5f, 0.9f, -1, -1, 0);
+    fill_triangle(-0.6f, -0.6f, 0.8f, 0.1f, 0.1f, 0.9f, 0x05);
+    flip();
 }

@@ -1,5 +1,5 @@
-C_SOURCES = $(wildcard kernel/*.c)
-HEADERS = $(wildcard kernel/*.h)
+C_SOURCES = $(shell find kernel/ -type f -name '*.c')
+HEADERS = $(shell find kernel/ -type f -name '*.h')
 C_OBJECTS = $(patsubst %.c,build/%.o,$(C_SOURCES))
 
 LD = /usr/local/i386elfgcc/bin/i386-elf-ld
