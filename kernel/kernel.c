@@ -1,13 +1,19 @@
 #include "core/core.h"
-#include "core/drivers/screen.h"
-#include "core/util/console.h"
+#include "core/drivers/timer.h"
+#include "snake.h"
 
 void main()
 {
     core_init();
 
-    clear_screen(0x00);
-    draw_console();
-    flip();
+    snake_init();
+
+    float previous_time = get_time();
+    while (1)
+    {
+        float time = get_time();
+        snake_update(time - previous_time);
+        previous_time = time;
+    }
 
 }

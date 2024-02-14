@@ -102,6 +102,21 @@ void draw_line(float x1f, float y1f, float x2f, float y2f, unsigned char palette
     }
 }
 
+void fill_rect_int(int x1, int y1, int x2, int y2, unsigned char palette_index)
+{
+    int xStart = x1 < x2 ? x1 : x2;
+    int xEnd = x1 > x2 ? x1 : x2;
+    int yStart = y1 < y2 ? y1 : y2;
+    int yEnd = y1 > y2 ? y1 : y2;
+    for (int x = xStart; x <= xEnd; x++)
+    {
+        for (int y = yStart; y <= yEnd; y++)
+        {
+            set_pixel(x, y, palette_index);
+        }
+    }
+}
+
 void fill_rect(float x1, float y1, float x2, float y2, unsigned char palette_index)
 {
     int xStart = x1 < x2 ? convert_to_screen_cords_x(x1) : convert_to_screen_cords_x(x2);
