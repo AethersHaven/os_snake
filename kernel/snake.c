@@ -20,7 +20,6 @@ void update();
 void render();
 void spawn_apple();
 void get_input();
-void draw_square(int x, int y, unsigned char palette_index);
 bool is_in_snake(int x, int y);
 
 void snake_init()
@@ -106,10 +105,33 @@ void render()
 
     for (int i = 0; i < snake_length; i++)
     {
-        draw_square(snake_body[i * 2 + 0], snake_body[i * 2 + 1], 0x0A);
+        int x = snake_body[i * 2 + 0];
+        int y = snake_body[i * 2 + 1];
+
+        int x1 = x * (SCREEN_WIDTH / GRID_WIDTH) + 1;
+        int y1 = y * (SCREEN_HEIGHT / GRID_HEIGHT) + 1;
+        int x2 = x1 + (SCREEN_WIDTH / GRID_WIDTH) - 2;
+        int y2 = y1 + (SCREEN_HEIGHT / GRID_HEIGHT) - 2;
+
+        if (i > 0)
+        {
+            int diff_x = snake_body[i * 2 + 0] - snake_body[(i - 1) * 2 + 0];
+            int diff_y = snake_body[i * 2 + 1] - snake_body[(i - 1) * 2 + 1];
+
+            x1 -= diff_x ==  1 ? 2 : 0;
+            x2 += diff_x == -1 ? 2 : 0;
+            y1 -= diff_y ==  1 ? 2 : 0;
+            y2 += diff_y == -1 ? 2 : 0;
+        }
+
+        fill_rect_int(x1, y1, x2 - 1, y2 - 1, 0x0A);
     }
 
-    draw_square(apple_x, apple_y, 0x28);
+    int x1 = apple_x * (SCREEN_WIDTH / GRID_WIDTH);
+    int y1 = apple_y * (SCREEN_HEIGHT / GRID_HEIGHT);
+    int x2 = x1 + (SCREEN_WIDTH / GRID_WIDTH);
+    int y2 = y1 + (SCREEN_HEIGHT / GRID_HEIGHT);
+    fill_rect_int(x1, y1, x2 - 1, y2 - 1, 0x28);
 
     draw_console();
     flip();
@@ -158,15 +180,6 @@ void get_input()
         input_x = 1;
         input_y = 0;
     }
-}
-
-void draw_square(int x, int y, unsigned char palette_index)
-{
-    int x1 = x * (SCREEN_WIDTH / GRID_WIDTH);
-    int y1 = y * (SCREEN_HEIGHT / GRID_HEIGHT);
-    int x2 = x1 + (SCREEN_WIDTH / GRID_WIDTH);
-    int y2 = y1 + (SCREEN_HEIGHT / GRID_HEIGHT);
-    fill_rect_int(x1, y1, x2 - 1, y2 - 1, palette_index);
 }
 
 bool is_in_snake(int x, int y)
